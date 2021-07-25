@@ -62,8 +62,10 @@ namespace didacbot {
     }
 
 	export enum Steppers {
-        1 = 0x1,
-        2 = 0x2
+        //% block="1"
+		STEP1 = 0x1,
+		//% block="2"
+        STEP2 = 0x2
     }
 	
 	export enum stepUnit {
