@@ -203,12 +203,12 @@ namespace didacbot {
 	
 	//% blockId=microshield_stepper block="Stepper|%index| turn|%num|%unit|"
     //% weight=90
-    export function StepperRotation(index: Steppers, num: number, unit: stepUnit): void {
+    export function Stepper(index: Steppers, num: number, unit: stepUnit): void {
         if (!initialized) {
             initPCA9685()
         }
 		setStepper(index, num > 0)
-        num = Math.abs(num)
+       	num = Math.abs(num)
 		
 		switch (unit) {
                 case stepUnit.Rotations: basic.pause(10240 * num)
