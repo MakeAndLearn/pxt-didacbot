@@ -67,8 +67,8 @@ namespace didacbot {
     }
 	
 	export enum stepUnit {
-    //% block="steps"
-    Steps,
+    //% block="degrees"
+    Degrees,
     //% block="rotations"
     Rotations
 	}
@@ -188,18 +188,6 @@ namespace didacbot {
         let value = v_us * 4096 / 20000
         setPwm(index + 7, 0, value)
     }
-    
-    //% blockId=microshield_stepper_revolution block="Stepper|%index|turn|%rev|revolutions"
-    //% weight=90
-    export function StepperRotation(index: Steppers, rev: number): void {
-        if (!initialized) {
-            initPCA9685()
-        }
-        setStepper(index, rev > 0)
-        rev = Math.abs(rev)
-        basic.pause(10240 * rev)
-        MotorStopAll()
-    }
 	
 	//% blockId=microshield_stepper block="Stepper|%index| turn|%num|%unit|"
     //% weight=90
@@ -207,27 +195,14 @@ namespace didacbot {
         if (!initialized) {
             initPCA9685()
         }
-		setStepper(index, num > 0)
+	setStepper(index, num > 0)
        	num = Math.abs(num)
 		
-		switch (unit) {
-                case stepUnit.Rotations: basic.pause(10360 * num)
-                case stepUnit.Steps: basic.pause(10240 * num / 360)
+	switch (unit) {
+                case stepUnit.Rotations: basic.pause(10750 * num)
+                case stepUnit.Degrees: basic.pause(10750 * num / 360)
             }
 		
-        MotorStopAll()
-    }
-	
-	
-	//% blockId=microshield_stepper_degree block="Stepper|%index|turn|%degree|º"
-    //% weight=90
-    export function StepperDegree(index: Steppers, degree: number): void {
-        if (!initialized) {
-            initPCA9685()
-        }
-        setStepper(index, degree > 0)
-        degree = Math.abs(degree)
-        basic.pause(10240 * degree / 360)
         MotorStopAll()
     }
     
