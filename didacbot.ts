@@ -1,6 +1,6 @@
 //% color=#FFAD5A weight=10 icon="\uf085"
 
-namespace microshield {
+namespace didacbot {
 
     const PCA9685_ADDRESS = 0x40
     
@@ -112,7 +112,7 @@ namespace microshield {
           i2cwrite(PCA9685_ADDRESS, MODE1, oldmode | 0xa1)  //1010 0001
       }
       
-	function setPwm(channel: number, on: number, off: number): void {
+      function setPwm(channel: number, on: number, off: number): void {
         if (channel < 0 || channel > 15)
             return;
 
@@ -182,7 +182,19 @@ namespace microshield {
         setPwm(index + 7, 0, value)
     }
     
-    //% blockId=microshield_stepper_degree block="Stepper|%index|turn|%degree|º"
+    //% blockId=microshield_stepper_revolution block="Stepper|%index|rotation|%rev|"
+    //% weight=90
+    export function StepperRotation(index: Steppers, rev: number): void {
+        if (!initialized) {
+            initPCA9685()
+        }
+        setStepper(index, rev > 0)
+        rev = Math.abs(rev)
+        basic.pause(10240 * rev)
+        MotorStopAll()
+    }
+	
+	//% blockId=microshield_stepper_degree block="Stepper|%index|turn|%degree|º"
     //% weight=90
     export function StepperDegree(index: Steppers, degree: number): void {
         if (!initialized) {
