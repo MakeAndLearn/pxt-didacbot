@@ -72,6 +72,17 @@ namespace didacbot {
 		//% block="rotations"
 		Rotations
 	}
+	
+	export enum direction {
+		//% block="forwards"
+		Forwards,
+		//% block="backwards"
+		Backwards,
+		//% block="right"
+		Right,
+		//% block="left"
+		Left
+	}
 
     function i2cwrite(addr: number, reg: number, value: number) {
         let buf = pins.createBuffer(2)
@@ -195,10 +206,41 @@ namespace didacbot {
         if (!initialized) {
             initPCA9685()
         }
-	setStepper(index, num > 0)
+		setStepper(index, num > 0)
        	num = Math.abs(num)
 		
-	switch (unit) {
+		switch (unit) {
+                case stepUnit.Rotations: basic.pause(10750 * num)
+                case stepUnit.Degrees: basic.pause(10750 * num / 360)
+            }
+		
+        MotorStopAll()
+    }
+	
+	//% blockId=didacbot_movement block="Go|%movement| turn|%num|%unit|"
+    //% weight=90
+    export function Stepper(movement: direction, num: number, unit: stepUnit): void {
+        if (!initialized) {
+            initPCA9685()
+        }
+		switch (unit) {
+                case direction.Forwards:
+					setStepper(1, num < 0)
+					setStepper(2, num > 0)
+				case direction.Backwards:
+					setStepper(1, num > 0)
+					setStepper(2, num < 0)
+				case direction.Left:
+					setStepper(1, num < 0)
+					setStepper(2, num < 0)
+				case direction.Right:
+					setStepper(1, num > 0)
+					setStepper(2, num > 0)
+            }
+		
+       	num = Math.abs(num)
+		
+		switch (unit) {
                 case stepUnit.Rotations: basic.pause(10750 * num)
                 case stepUnit.Degrees: basic.pause(10750 * num / 360)
             }
