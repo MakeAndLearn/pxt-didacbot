@@ -225,7 +225,7 @@ namespace didacbot {
         if (!initialized) {
             initPCA9685()
         }
-		switch (unit) {
+		switch (movement) {
                 case direction.Forwards:
 					setStepper(1, num < 0)
 					setStepper(2, num > 0)
