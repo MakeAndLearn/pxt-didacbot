@@ -211,7 +211,7 @@ namespace didacbot {
        	num = Math.abs(num)
 		
 		switch (unit) {
-                case stepUnit.Rotations: basic.pause(10240 * num)
+                case stepUnit.Rotations: basic.pause(10360 * num)
                 case stepUnit.Steps: basic.pause(10240 * num / 360)
             }
 		
