@@ -221,7 +221,7 @@ namespace didacbot {
 	
 	//% blockId=didacbot_movement block="Go|%movement| turn|%num|%unit|"
     //% weight=90
-    export function Stepper(movement: direction, num: number, unit: stepUnit): void {
+    export function Didacbot(movement: direction, num: number, unit: stepUnit): void {
         if (!initialized) {
             initPCA9685()
         }
