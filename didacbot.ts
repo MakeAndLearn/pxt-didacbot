@@ -201,7 +201,7 @@ namespace didacbot {
         MotorStopAll()
     }
 	
-	//% blockId=microshield_stepper block="Stepper|%index|turn|%num||%unit|"
+	//% blockId=microshield_stepper block="Stepper|%index| turn|%num|%unit|"
     //% weight=90
     export function StepperRotation(index: Steppers, num: number, unit: stepUnit): void {
         if (!initialized) {
