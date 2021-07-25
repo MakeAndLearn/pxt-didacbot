@@ -1,7 +1,7 @@
 input.onGesture(Gesture.Shake, function () {
-    didacbot.Servo(microshield.Servos.S7, 180)
+    didacbot.Servo(didacbot.Servos.S7, 180)
     basic.pause(100)
-    didacbot.Servo(microshield.Servos.S7, 90)
+    didacbot.Servo(didacbot.Servos.S7, 90)
 })
 input.onButtonPressed(Button.A, function () {
     didacbot.StepperDegree(didacbot.Steppers.STEP1, 45)
