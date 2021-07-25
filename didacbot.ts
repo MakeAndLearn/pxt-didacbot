@@ -65,6 +65,13 @@ namespace didacbot {
         STEP1 = 0x1,
         STEP2 = 0x2
     }
+	
+	export enum stepUnit {
+    //% block="steps"
+    Steps,
+    //% block="rotations"
+    Rotations
+	}
 
     function i2cwrite(addr: number, reg: number, value: number) {
         let buf = pins.createBuffer(2)
@@ -182,7 +189,7 @@ namespace didacbot {
         setPwm(index + 7, 0, value)
     }
     
-    //% blockId=microshield_stepper_revolution block="Stepper|%index|rotation|%rev|"
+    //% blockId=microshield_stepper_revolution block="Stepper|%index|turn|%rev|revolutions"
     //% weight=90
     export function StepperRotation(index: Steppers, rev: number): void {
         if (!initialized) {
@@ -193,6 +200,24 @@ namespace didacbot {
         basic.pause(10240 * rev)
         MotorStopAll()
     }
+	
+	//% blockId=microshield_stepper block="Stepper|%index|turn|%num||%unit|"
+    //% weight=90
+    export function StepperRotation(index: Steppers, num: number, unit: stepUnit): void {
+        if (!initialized) {
+            initPCA9685()
+        }
+		setStepper(index, num > 0)
+        num = Math.abs(num)
+		
+		switch (unit) {
+                case stepUnit.Rotations: basic.pause(10240 * num)
+                case stepUnit.Steps: basic.pause(10240 * num / 360)
+            }
+		
+        MotorStopAll()
+    }
+	
 	
 	//% blockId=microshield_stepper_degree block="Stepper|%index|turn|%degree|º"
     //% weight=90
