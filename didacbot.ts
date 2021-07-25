@@ -62,15 +62,15 @@ namespace didacbot {
     }
 
 	export enum Steppers {
-        STEP1 = 0x1,
-        STEP2 = 0x2
+        1 = 0x1,
+        2 = 0x2
     }
 	
 	export enum stepUnit {
-    //% block="degrees"
-    Degrees,
-    //% block="rotations"
-    Rotations
+		//% block="degrees"
+		Degrees,
+		//% block="rotations"
+		Rotations
 	}
 
     function i2cwrite(addr: number, reg: number, value: number) {
