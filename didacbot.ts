@@ -1,4 +1,4 @@
-//% color=#FFAD5A weight=10 icon="\uf085"
+//% color=#FFAD5A weight=10 icon="\uf1b9"
 
 namespace didacbot {
 
@@ -219,7 +219,7 @@ namespace didacbot {
         MotorStopAll()
     }
 	
-	//% blockId=didacbot_movement block="Go|%movement| turn|%num|%unit|"
+	//% blockId=didacbot_movement block="Didacbot Go|%movement| turn|%num|%unit|"
     //% weight=90
     export function Didacbot(movement: direction, num: number, unit: stepUnit): void {
         if (!initialized) {
