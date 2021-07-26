@@ -228,7 +228,7 @@ namespace didacbot {
 		switch (movement) {
                 case direction.Forwards:
 					setStepper(1, num < 0)
-					setStepper(2, num > 0)
+					setStepper(2, num < 0)
 				case direction.Backwards:
 					setStepper(1, num > 0)
 					setStepper(2, num < 0)
