@@ -219,7 +219,7 @@ namespace didacbot {
         MotorStopAll()
     }
 	
-	//% blockId=didacbot_movement block="Didacbot Go|%movement| turn|%num|%unit|"
+	//% blockId=didacbot_movement block="Didacbot Go|%movement| turning wheels|%num|%unit|"
     //% weight=90
     export function Didacbot(movement: direction, num: number, unit: stepUnit): void {
         if (!initialized) {
