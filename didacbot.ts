@@ -249,6 +249,16 @@ namespace didacbot {
 		
         MotorStopAll()
     }
+	
+	//% blockId=didacbot_stop block="Didacbot Stop"
+    //% weight=90
+    export function DidacbotStop(): void {
+        if (!initialized) {
+            initPCA9685()
+        }
+		MotorStopAll()
+	}
+	
     
     //% blockId=microshield_motor_run block="Motor|%index|speed %speed"
     //% weight=85
