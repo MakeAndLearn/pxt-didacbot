@@ -38,28 +38,6 @@ namespace didacbot {
     let initialized = false
     let matBuf = pins.createBuffer(17);
 
-    
-    export enum Servos {
-        S0 = 0x01,
-        S1 = 0x02,
-        S2 = 0x03,
-        S3 = 0x04,
-        S4 = 0x05,
-        S5 = 0x06,
-        S6 = 0x07,
-        S7 = 0x08
-    }
-    
-    export enum Motors {
-        //% block="M1"
-        M1 = 0x1,
-        //% block="M2"
-        M2 = 0x2,
-        //% block="M3"
-        M3 = 0x3,
-        //% block="M4"
-        M4 = 0x4
-    }
 
 	export enum Steppers {
         //% block="1"
@@ -144,35 +122,6 @@ namespace didacbot {
         buf[4] = (off >> 8) & 0xff
         pins.i2cWriteBuffer(PCA9685_ADDRESS, buf)
     }
-    
-    function setStepper(index: number, dir: boolean): void {
-        if (index == 1) {
-            if (dir) {
-                setPwm(0, STP_CHA_L, STP_CHA_H)
-                setPwm(3, STP_CHB_L, STP_CHB_H)
-                setPwm(1, STP_CHC_L, STP_CHC_H)
-                setPwm(2, STP_CHD_L, STP_CHD_H)
-            } else {
-                setPwm(2, STP_CHA_L, STP_CHA_H)
-                setPwm(1, STP_CHB_L, STP_CHB_H)
-                setPwm(3, STP_CHC_L, STP_CHC_H)
-                setPwm(0, STP_CHD_L, STP_CHD_H)
-            }
-        }
-        else {
-            if (dir) {
-                setPwm(4, STP_CHA_L, STP_CHA_H)
-                setPwm(7, STP_CHB_L, STP_CHB_H)
-                setPwm(5, STP_CHC_L, STP_CHC_H)
-                setPwm(6, STP_CHD_L, STP_CHD_H)
-            } else {
-                setPwm(6, STP_CHA_L, STP_CHA_H)
-                setPwm(5, STP_CHB_L, STP_CHB_H)
-                setPwm(7, STP_CHC_L, STP_CHC_H)
-                setPwm(4, STP_CHD_L, STP_CHD_H)
-            }
-        }
-    }
 
     function stopMotor(index: number) {
         setPwm((index - 1) * 2, 0, 0)
@@ -226,44 +175,6 @@ namespace didacbot {
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-    /**
-	 * Servo Execute
-	 * @param index Servo Channel; eg: S1
-	 * @param degree [0-180] degree of servo; eg: 0, 90, 180
-	*/
-    //% blockId=microshield_servo block="Servo|%index|to angle|%degree|º"
-    //% weight=100
-    //% blockGap=50
-    //% degree.min=0 degree.max=180
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
-    export function Servo(index: Servos, degree: number): void {
-        if (!initialized) {
-            initPCA9685()
-        }
-        // 50hz: 20,000 us
-        let v_us = (degree * 1800 / 180 + 600) // 0.6 ~ 2.4
-        let value = v_us * 4096 / 20000
-        setPwm(index + 7, 0, value)
-    }
-	
-	//% blockId=microshield_stepper block="Stepper|%index| turn|%num|%unit|"
-    //% weight=90
-    export function Stepper(index: Steppers, num: number, unit: stepUnit): void {
-        if (!initialized) {
-            initPCA9685()
-        }
-		setStepper(index, num > 0)
-       	num = Math.abs(num)
-		
-		switch (unit) {
-                case stepUnit.Rotations: basic.pause(10750 * num)
-                case stepUnit.Degrees: basic.pause(10750 * num / 360)
-            }
-		
-        MotorStopAll()
-    }
-
     //% blockId=didacbot_movement block="Didacbot Go |%movement|"
     //% weight=90
     export function Didacbot_move(movement: direction): void {
@@ -306,6 +217,7 @@ namespace didacbot {
         MotorStopAll()
     }
 	
+	
 	//% blockId=didacbot_stop block="Didacbot Stop"
     //% weight=90
     export function DidacbotStop(): void {
@@ -314,46 +226,4 @@ namespace didacbot {
         }
 		MotorStopAll()
 	}
-
-    
-    //% blockId=microshield_motor_run block="Motor|%index|speed %speed"
-    //% weight=85
-    //% speed.min=-100 speed.max=100
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
-    export function MotorRun(index: Motors, speed: number): void {
-        if (!initialized) {
-            initPCA9685()
-        }
-        speed = speed * 40; // map 100 to 4096
-        if (speed >= 4096) {
-            speed = 4095
-        }
-        if (speed <= -4096) {
-            speed = -4095
-        }
-        if (index > 4 || index <= 0)
-            return
-        let pp = (index - 1) * 2
-        let pn = (index - 1) * 2 + 1
-        if (speed >= 0) {
-            setPwm(pp, 0, speed)
-            setPwm(pn, 0, 0)
-        } else {
-            setPwm(pp, 0, 0)
-            setPwm(pn, 0, -speed)
-        }
-    }
-    
-    //% blockId=microshield_stop block="Stop motor|%index|"
-    //% weight=80
-    export function MotorStop(index: Motors): void {
-        MotorRun(index, 0);
-    }
-
-
-    export function MotorStopAll(): void {
-        for (let idx = 1; idx <= 4; idx++) {
-            stopMotor(idx);
-        }
-    }
 }
