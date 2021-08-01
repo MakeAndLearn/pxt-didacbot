@@ -132,7 +132,7 @@ namespace didacbot {
           i2cwrite(PCA9685_ADDRESS, MODE1, oldmode | 0xa1)  //1010 0001
       }
       
-      function setPwm(channel: number, on: number, off: number): void {
+    function setPwm(channel: number, on: number, off: number): void {
         if (channel < 0 || channel > 15)
             return;
 
@@ -178,6 +178,51 @@ namespace didacbot {
         setPwm((index - 1) * 2, 0, 0)
         setPwm((index - 1) * 2 + 1, 0, 0)
     }
+
+    function DidacbotEndavant() {
+        setPwm(0, STP_CHA_L, STP_CHA_H)
+        setPwm(3, STP_CHB_L, STP_CHB_H)
+        setPwm(1, STP_CHC_L, STP_CHC_H)
+        setPwm(2, STP_CHD_L, STP_CHD_H)
+        setPwm(6, STP_CHA_L, STP_CHA_H)
+        setPwm(5, STP_CHB_L, STP_CHB_H)
+        setPwm(7, STP_CHC_L, STP_CHC_H)
+        setPwm(4, STP_CHD_L, STP_CHD_H)
+    }
+
+    function DidacbotDarrera() {
+        setPwm(2, STP_CHA_L, STP_CHA_H)
+        setPwm(1, STP_CHB_L, STP_CHB_H)
+        setPwm(3, STP_CHC_L, STP_CHC_H)
+        setPwm(0, STP_CHD_L, STP_CHD_H)
+        setPwm(4, STP_CHA_L, STP_CHA_H)
+        setPwm(7, STP_CHB_L, STP_CHB_H)
+        setPwm(5, STP_CHC_L, STP_CHC_H)
+        setPwm(6, STP_CHD_L, STP_CHD_H)
+    }
+
+    
+    function DidacbotGirDreta() {
+        setPwm(0, STP_CHA_L, STP_CHA_H)
+        setPwm(3, STP_CHB_L, STP_CHB_H)
+        setPwm(1, STP_CHC_L, STP_CHC_H)
+        setPwm(2, STP_CHD_L, STP_CHD_H)
+        setPwm(4, STP_CHA_L, STP_CHA_H)
+        setPwm(7, STP_CHB_L, STP_CHB_H)
+        setPwm(5, STP_CHC_L, STP_CHC_H)
+        setPwm(6, STP_CHD_L, STP_CHD_H)
+    }
+
+    function DidacbotGirEsquerra() {
+        setPwm(2, STP_CHA_L, STP_CHA_H)
+        setPwm(1, STP_CHB_L, STP_CHB_H)
+        setPwm(3, STP_CHC_L, STP_CHC_H)
+        setPwm(0, STP_CHD_L, STP_CHD_H)
+        setPwm(6, STP_CHA_L, STP_CHA_H)
+        setPwm(5, STP_CHB_L, STP_CHB_H)
+        setPwm(7, STP_CHC_L, STP_CHC_H)
+        setPwm(4, STP_CHD_L, STP_CHD_H)
+    }
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -218,40 +263,45 @@ namespace didacbot {
 		
         MotorStopAll()
     }
-	
-	//% blockId=didacbot_movement block="Didacbot Go|%movement| turning wheels|%num|%unit|"
+
+    //% blockId=didacbot_movement block="Didacbot Go |%movement|"
+    //% weight=90
+    export function Didacbot_move(movement: direction): void {
+        if (!initialized) {
+            initPCA9685()
+        }
+        if (movement == direction.Forwards) 
+            DidacbotEndavant()
+        else if (movement == direction.Backwards)
+            DidacbotDarrera()
+        else if (movement == direction.Left)
+            DidacbotGirEsquerra()
+        else if (movement == direction.Right)
+            DidacbotGirDreta()
+    }
+
+
+	//% blockId=didacbot_movement_params block="Didacbot Go|%movement| turning wheels|%num|%unit|"
     //% weight=90
     export function Didacbot(movement: direction, num: number, unit: stepUnit): void {
         if (!initialized) {
             initPCA9685()
         }
-		switch (movement) {
-                case direction.Forwards:
-					setPwm(0, STP_CHA_L, STP_CHA_H)
-                    setPwm(3, STP_CHB_L, STP_CHB_H)
-                    setPwm(1, STP_CHC_L, STP_CHC_H)
-                    setPwm(2, STP_CHD_L, STP_CHD_H)
-                    setPwm(6, STP_CHA_L, STP_CHA_H)
-                    setPwm(5, STP_CHB_L, STP_CHB_H)
-                    setPwm(7, STP_CHC_L, STP_CHC_H)
-                    setPwm(4, STP_CHD_L, STP_CHD_H)
-				case direction.Backwards:
-					setStepper(1, num > 0)
-					setStepper(2, num < 0)
-				case direction.Left:
-					setStepper(1, num < 0)
-					setStepper(2, num < 0)
-				case direction.Right:
-					setStepper(1, num > 0)
-					setStepper(2, num > 0)
-            }
+        if (movement == direction.Forwards)
+            DidacbotEndavant()
+        else if (movement == direction.Backwards)
+            DidacbotDarrera()
+        else if (movement == direction.Left)
+            DidacbotGirEsquerra()
+        else if (movement == direction.Right)
+            DidacbotGirDreta()
 		
        	num = Math.abs(num)
 		
 		switch (unit) {
-                case stepUnit.Rotations: basic.pause(10750 * num)
-                case stepUnit.Degrees: basic.pause(10750 * num / 360)
-            }
+            case stepUnit.Rotations: basic.pause(10750 * num)
+            case stepUnit.Degrees: basic.pause(10750 * num / 360)
+        }
 		
         MotorStopAll()
     }
@@ -264,7 +314,7 @@ namespace didacbot {
         }
 		MotorStopAll()
 	}
-	
+
     
     //% blockId=microshield_motor_run block="Motor|%index|speed %speed"
     //% weight=85
