@@ -173,6 +173,17 @@ namespace didacbot {
         setPwm(4, STP_CHD_L, STP_CHD_H)
     }
     
+	function MotorStopAll() {
+		setPwm(2, 0, 0)
+        setPwm(1, 0, 0)
+        setPwm(3, 0, 0)
+        setPwm(0, 0, 0)
+        setPwm(6, 0, 0)
+        setPwm(5, 0, 0)
+        setPwm(7, 0, 0)
+        setPwm(4, 0, 0)
+	}
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //% blockId=didacbot_movement block="Didacbot Go |%movement|"
