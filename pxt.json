@@ -5,7 +5,7 @@
     "license": "MIT",
     "dependencies": {
         "core": "*",
-		"NeoPixel": "github:microsoft/pxt-neopixel"
+		"NeoPixel": "github:microsoft/pxt-neopixel",
 		"Microshield": "github:MakeAndLearn/pxt-microshield"
 	    
     },
