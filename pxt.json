@@ -6,7 +6,8 @@
     "dependencies": {
         "core": "*",
 		"NeoPixel": "github:microsoft/pxt-neopixel",
-		"Microshield": "github:MakeAndLearn/pxt-microshield"
+		"Microshield": "github:MakeAndLearn/pxt-microshield",
+	    "sonar": "github:microsoft/pxt-sonar"
 	    
     },
     "files": [
