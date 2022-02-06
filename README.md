@@ -8,19 +8,19 @@ The robot Didacbot works thanks to the module micro:shield, a flexible board whe
 * Set Didacbot movement in a specific direction
 
 ```sig
- didacbot.Didacbot_move(didacbot.direction.Forward)
+didacbot.Didacbot_move(didacbot.direction.Forward)
 ```
 
 * Set the number of Didacbot wheels rotation in a specific direction
 
 ```sig
- didacbot.Didacbot(didacbot.direction.Forward, 3, didacbot.stepUnit.Rotations)
+didacbot.Didacbot(didacbot.direction.Forward, 3, didacbot.stepUnit.Rotations)
 ```
 
 * Stop Didacbot's any kind of movement 
 
 ```sig
-     didacbot.DidacbotStop()
+didacbot.DidacbotStop()
 ```
 
 ## License
