@@ -54,8 +54,8 @@ namespace didacbot {
 	}
 	
 	export enum direction {
-		//% block="forwards"
-		Forwards,
+		//% block="forward"
+		Forward,
 		//% block="backwards"
 		Backwards,
 		//% block="right"
@@ -192,7 +192,7 @@ namespace didacbot {
         if (!initialized) {
             initPCA9685()
         }
-        if (movement == direction.Forwards) 
+        if (movement == direction.Forward) 
             DidacbotEndavant()
         else if (movement == direction.Backwards)
             DidacbotDarrera()
@@ -209,7 +209,7 @@ namespace didacbot {
         if (!initialized) {
             initPCA9685()
         }
-        if (movement == direction.Forwards)
+        if (movement == direction.Forward)
             DidacbotEndavant()
         else if (movement == direction.Backwards)
             DidacbotDarrera()
