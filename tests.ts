@@ -1,8 +1,14 @@
 input.onButtonPressed(Button.A, function () {
-    didacbot.Didacbot(didacbot.direction.Right, 1, didacbot.stepUnit.Rotations)
+    didacbot.Didacbot(didacbot.direction.Forward, 30, didacbot.stepUnit.Degrees)
 })
 input.onButtonPressed(Button.B, function () {
-        didacbot.Didacbot(didacbot.direction.Left, 1, didacbot.stepUnit.Rotations)
-
+    didacbot.Didacbot(didacbot.direction.Backwards, 30, didacbot.stepUnit.Degrees)
 })
-didacbot.DidacbotStop()
+basic.forever(function () {
+    didacbot.Didacbot(didacbot.direction.Forward, 3, didacbot.stepUnit.Rotations)
+    didacbot.DidacbotStop()
+    basic.pause(1000)
+    didacbot.Didacbot(didacbot.direction.Backwards, 3, didacbot.stepUnit.Rotations)
+    didacbot.DidacbotStop()
+    basic.pause(1000)
+})
