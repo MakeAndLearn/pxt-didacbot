@@ -226,10 +226,6 @@ namespace didacbot {
             DidacbotGirEsquerra()
         else if (movement == direction.Right)
             DidacbotGirDreta()
-		else if (movement == direction.RotRight)
-            DidacbotRotDreta()
-		else if (movement == direction.RotLeft)
-            DidacbotRotEsquerra()
     }
 
 
@@ -256,6 +252,26 @@ namespace didacbot {
         }
 		
         MotorStopAll()
+    }
+	
+	
+	//% blockId=didacbot_rotation_params block="Didacbot Rotate |%degree|º"
+    //% weight=200
+	//% blockGap=50
+    //% degree.min=-180 degree.max=180
+    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
+    export function Didacbot(degree: number): void {
+        if (!initialized) {
+            initPCA9685()
+        }
+        if (degree < 0)
+            DidacbotRotEsquerra()
+			basic.pause(53,75 * degree)
+        else if (degree > 0)
+            DidacbotRotDreta()
+			basic.pause(53,75 * degree)
+        else 
+			MotorStopAll()   
     }
 	
 	
