@@ -229,7 +229,7 @@ namespace didacbot {
 		else if (movement == direction.RotRight)
             DidacbotRotDreta()
 		else if (movement == direction.RotLeft)
-            DidacbotRotLeft()
+            DidacbotRotEsquerra()
     }
 
 
