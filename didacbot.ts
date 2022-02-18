@@ -41,8 +41,8 @@ namespace didacbot {
 
 	export enum Steppers {
         //% block="1"
-		STEP1 = 0x1,
-		//% block="2"
+	STEP1 = 0x1,
+	//% block="2"
         STEP2 = 0x2
     }
 	
@@ -61,7 +61,11 @@ namespace didacbot {
 		//% block="right"
 		Right,
 		//% block="left"
-		Left
+		Left,
+		//% block="rot_right"
+		RotRight,
+		//% block="rot_left"
+		RotLeft,
 	}
 
     function i2cwrite(addr: number, reg: number, value: number) {
@@ -222,6 +226,10 @@ namespace didacbot {
             DidacbotGirEsquerra()
         else if (movement == direction.Right)
             DidacbotGirDreta()
+		else if (movement == direction.RotRight)
+            DidacbotRotDreta()
+		else if (movement == direction.RotLeft)
+            DidacbotRotLeft()
     }
 
 
