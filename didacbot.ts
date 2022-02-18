@@ -152,7 +152,29 @@ namespace didacbot {
 
     
     function DidacbotGirDreta() {
-	setPwm(2, STP_CHA_L, STP_CHA_H)
+		setPwm(2, 0, 0)
+        setPwm(1, 0, 0)
+        setPwm(3, 0, 0)
+        setPwm(0, 0, 0)
+        setPwm(6, STP_CHA_L, STP_CHA_H)
+        setPwm(5, STP_CHB_L, STP_CHB_H)
+        setPwm(7, STP_CHC_L, STP_CHC_H)
+        setPwm(4, STP_CHD_L, STP_CHD_H)
+    }
+
+    function DidacbotGirEsquerra() {
+        setPwm(0, STP_CHA_L, STP_CHA_H)
+        setPwm(3, STP_CHB_L, STP_CHB_H)
+        setPwm(1, STP_CHC_L, STP_CHC_H)
+        setPwm(2, STP_CHD_L, STP_CHD_H)
+        setPwm(4, 0, 0)
+        setPwm(7, 0, 0)
+        setPwm(5, 0, 0)
+        setPwm(6, 0, 0)
+    }
+	
+	function DidacbotRotDreta() {
+		setPwm(2, STP_CHA_L, STP_CHA_H)
         setPwm(1, STP_CHB_L, STP_CHB_H)
         setPwm(3, STP_CHC_L, STP_CHC_H)
         setPwm(0, STP_CHD_L, STP_CHD_H)
@@ -161,8 +183,8 @@ namespace didacbot {
         setPwm(7, STP_CHC_L, STP_CHC_H)
         setPwm(4, STP_CHD_L, STP_CHD_H)
     }
-
-    function DidacbotGirEsquerra() {
+	
+	function DidacbotRotEsquerra() {
         setPwm(0, STP_CHA_L, STP_CHA_H)
         setPwm(3, STP_CHB_L, STP_CHB_H)
         setPwm(1, STP_CHC_L, STP_CHC_H)
