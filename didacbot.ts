@@ -41,8 +41,8 @@ namespace didacbot {
 
 	export enum Steppers {
         //% block="1"
-	STEP1 = 0x1,
-	//% block="2"
+        STEP1 = 0x1,
+        //% block="2"
         STEP2 = 0x2
     }
 	
@@ -61,11 +61,7 @@ namespace didacbot {
 		//% block="right"
 		Right,
 		//% block="left"
-		Left,
-		//% block="rot_right"
-		RotRight,
-		//% block="rot_left"
-		RotLeft,
+		Left
 	}
 
     function i2cwrite(addr: number, reg: number, value: number) {
@@ -97,21 +93,21 @@ namespace didacbot {
     }
 
     function setFreq(freq: number): void {
-          // Constrain the frequency
-          let prescaleval = 25000000
-          prescaleval /= 4096
-          prescaleval /= freq
-          prescaleval = prescaleval * 25 / 24  // 0.915
-          prescaleval -= 1
-          let prescale = prescaleval //Math.Floor(prescaleval + 0.5);
-          let oldmode = i2cread(PCA9685_ADDRESS, MODE1)
-          let newmode = (oldmode & 0x7F) | 0x10 // sleep
-          i2cwrite(PCA9685_ADDRESS, MODE1, newmode) // go to sleep
-          i2cwrite(PCA9685_ADDRESS, PRESCALE, prescale) // set the prescaler
-          i2cwrite(PCA9685_ADDRESS, MODE1, oldmode)
-          basic.pause(1)
-          //control.waitMicros(5000);
-          i2cwrite(PCA9685_ADDRESS, MODE1, oldmode | 0xa1)  //1010 0001
+		  // Constrain the frequency
+		  let prescaleval = 25000000
+		  prescaleval /= 4096
+		  prescaleval /= freq
+		  prescaleval = prescaleval * 25 / 24  // 0.915
+		  prescaleval -= 1
+		  let prescale = prescaleval //Math.Floor(prescaleval + 0.5);
+		  let oldmode = i2cread(PCA9685_ADDRESS, MODE1)
+		  let newmode = (oldmode & 0x7F) | 0x10 // sleep
+		  i2cwrite(PCA9685_ADDRESS, MODE1, newmode) // go to sleep
+		  i2cwrite(PCA9685_ADDRESS, PRESCALE, prescale) // set the prescaler
+		  i2cwrite(PCA9685_ADDRESS, MODE1, oldmode)
+		  basic.pause(1)
+		  //control.waitMicros(5000);
+		  i2cwrite(PCA9685_ADDRESS, MODE1, oldmode | 0xa1)  //1010 0001
       }
       
     function setPwm(channel: number, on: number, off: number): void {
@@ -213,7 +209,7 @@ namespace didacbot {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //% blockId=didacbot_movement block="Didacbot Go |%movement|"
-    //% weight=90
+    //% weight=120
     export function Didacbot_move(movement: direction): void {
         if (!initialized) {
             initPCA9685()
@@ -230,7 +226,7 @@ namespace didacbot {
 
 
 	//% blockId=didacbot_movement_params block="Didacbot Go|%movement| turning wheels|%num|%unit|"
-    //% weight=90
+    //% weight=150
     export function Didacbot(movement: direction, num: number, unit: stepUnit): void {
         if (!initialized) {
             initPCA9685()
@@ -256,22 +252,24 @@ namespace didacbot {
 	
 	
 	//% blockId=didacbot_rotation_params block="Didacbot Rotate |%degree|º"
-    //% weight=200
-	//% blockGap=50
+    //% weight=100
     //% degree.min=-180 degree.max=180
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
-    export function Didacbot(degree: number): void {
+    export function Didacbot_rotation(degree: number): void {
         if (!initialized) {
             initPCA9685()
         }
-        if (degree < 0)
+        if (degree < 0) {
             DidacbotRotEsquerra()
-			basic.pause(53,75 * degree)
-        else if (degree > 0)
+            basic.pause(53.75 * degree)
+        }    
+        else if (degree > 0) {
             DidacbotRotDreta()
-			basic.pause(53,75 * degree)
-        else 
-			MotorStopAll()   
+            basic.pause(53.75 * degree)
+        }   
+        else {
+            MotorStopAll()
+        }	  
     }
 	
 	
