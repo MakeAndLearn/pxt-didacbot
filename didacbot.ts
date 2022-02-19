@@ -259,14 +259,16 @@ namespace didacbot {
         if (!initialized) {
             initPCA9685()
         }
-        if (degree < 0) {
-            DidacbotRotEsquerra()
-            basic.pause(53.75 * degree)
-        }    
-        else if (degree > 0) {
-            DidacbotRotDreta()
-            basic.pause(53.75 * degree)
-        }   
+		if (degree != 0) {
+			if (degree < 0) {
+				DidacbotRotEsquerra()
+			}    
+			else if (degree > 0) {
+				DidacbotRotDreta()
+			}
+			basic.pause(53.75 * degree)
+			MotorStopAll()
+		}
         else {
             MotorStopAll()
         }	  
