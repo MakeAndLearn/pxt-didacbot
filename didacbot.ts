@@ -266,7 +266,7 @@ namespace didacbot {
 			else if (degree > 0) {
 				DidacbotRotDreta()
 			}
-			basic.pause(57.33 * degree)
+			basic.pause(57.33 * Math.abs(degree))
 			MotorStopAll()
 		}
         else {
