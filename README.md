@@ -1,5 +1,5 @@
 ## Didacbot package
-Didacbot is an educational robot to learn programming in early ages. This Didacbot package was developed by [Make&Learn](https://www.makeandlearn.cat/). If you're interested in this robot, you can contact to info@makeandlearn.cat.
+Didacbot is an educational robot to learn programming in early ages. This Didacbot package was developed by [Make&Learn](https://www.makeandlearn.cat/). If you're interested in this robot, you can get it through the [Make&Learn's online shop](https://botiga.makeandlearn.cat/producto/didacbot).
 
 The robot Didacbot works thanks to the module micro:shield, a flexible board where you can connect components of many kinds, especially the ones that the educational community uses more frequently. You can find its own MakeCode extension [here](https://github.com/MakeAndLearn/pxt-microshield).
 
