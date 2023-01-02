@@ -150,7 +150,6 @@ namespace didacbot {
         setPwm(4, STP_CHD_L, STP_CHD_H)
     }
 
-    
     function DidacbotGirDreta() {
 		setPwm(2, STP_CHA_L, STP_CHA_H)
         setPwm(1, STP_CHB_L, STP_CHB_H)
