@@ -1,13 +1,13 @@
 {
     "name": "didacbot",
-    "version": "0.1",
+    "version": "1.0.1",
     "description": "MAKE&LEARN Didacbot",
     "license": "MIT",
     "dependencies": {
         "core": "*",
 		"NeoPixel": "github:microsoft/pxt-neopixel",
 		"Microshield": "github:MakeAndLearn/pxt-microshield",
-	    "sonar": "github:microsoft/pxt-sonar"
+	    	"sonar": "github:microsoft/pxt-sonar"
 	    
     },
     "files": [
@@ -18,5 +18,5 @@
         "tests.ts"
     ],
     "public": true,
-    "installedVersion": "github:MakeAndLearn/pxt-didacbot#v0.1"
+    "installedVersion": "github:MakeAndLearn/pxt-didacbot#v1.0.1"
 }
