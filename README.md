@@ -9,7 +9,7 @@ The robot Didacbot works thanks to the module micro:shield, a flexible board whe
 
 ## Hint
 
-To use this package, go to https://makecode.microbit.org, click ``Add package`` and search for **Didacbot**. The package is located [here](https://makecode.microbit.org/pkg/makeandlearn/pxt-didacbot)
+To use this package, go to https://makecode.microbit.org, click ``Add package`` and search for **Didacbot**. The package is located [here](https://makecode.microbit.org/pkg/makeandlearn/pxt-didacbot).
 
 
 ## Basic usage
