@@ -215,7 +215,7 @@ namespace didacbot {
         }
         if (movement == direction.Forward) 
             DidacbotForward()
-        else if (movement == direction.Backwards)
+        else if (movement == direction.Backward)
             DidacbotBackward()
         else if (movement == direction.Left)
             DidacbotTurnLeft()
@@ -232,7 +232,7 @@ namespace didacbot {
         }
         if (movement == direction.Forward)
             DidacbotForward()
-        else if (movement == direction.Backwards)
+        else if (movement == direction.Backward)
             DidacbotBackward()
         else if (movement == direction.Left)
             DidacbotTurnLeft()
