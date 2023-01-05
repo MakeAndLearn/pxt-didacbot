@@ -56,8 +56,8 @@ namespace didacbot {
 	export enum direction {
 		//% block="forward"
 		Forward,
-		//% block="backwards"
-		Backwards,
+		//% block="backward"
+		Backward,
 		//% block="right"
 		Right,
 		//% block="left"
@@ -128,7 +128,7 @@ namespace didacbot {
         setPwm((index - 1) * 2 + 1, 0, 0)
     }
 
-    function DidacbotEndavant() {
+    function DidacbotForward() {
         setPwm(2, STP_CHA_L, STP_CHA_H)
         setPwm(1, STP_CHB_L, STP_CHB_H)
         setPwm(3, STP_CHC_L, STP_CHC_H)
@@ -139,7 +139,7 @@ namespace didacbot {
         setPwm(6, STP_CHD_L, STP_CHD_H)
     }
 
-    function DidacbotDarrera() {
+    function DidacbotBackward() {
         setPwm(0, STP_CHA_L, STP_CHA_H)
         setPwm(3, STP_CHB_L, STP_CHB_H)
         setPwm(1, STP_CHC_L, STP_CHC_H)
@@ -150,7 +150,7 @@ namespace didacbot {
         setPwm(4, STP_CHD_L, STP_CHD_H)
     }
 
-    function DidacbotGirDreta() {
+    function DidacbotTurnRight() {
 		setPwm(2, STP_CHA_L, STP_CHA_H)
         setPwm(1, STP_CHB_L, STP_CHB_H)
         setPwm(3, STP_CHC_L, STP_CHC_H)
@@ -161,7 +161,7 @@ namespace didacbot {
         setPwm(6, 0, 0)
     }
 
-    function DidacbotGirEsquerra() {
+    function DidacbotTurnLeft() {
 		setPwm(2, 0, 0)
         setPwm(1, 0, 0)
         setPwm(3, 0, 0)
@@ -172,7 +172,7 @@ namespace didacbot {
         setPwm(6, STP_CHD_L, STP_CHD_H)
     }
 	
-	function DidacbotRotDreta() {
+	function DidacbotRotRight() {
 		setPwm(2, STP_CHA_L, STP_CHA_H)
         setPwm(1, STP_CHB_L, STP_CHB_H)
         setPwm(3, STP_CHC_L, STP_CHC_H)
@@ -183,7 +183,7 @@ namespace didacbot {
         setPwm(4, STP_CHD_L, STP_CHD_H)
     }
 	
-	function DidacbotRotEsquerra() {
+	function DidacbotRotLeft() {
         setPwm(0, STP_CHA_L, STP_CHA_H)
         setPwm(3, STP_CHB_L, STP_CHB_H)
         setPwm(1, STP_CHC_L, STP_CHC_H)
@@ -214,13 +214,13 @@ namespace didacbot {
             initPCA9685()
         }
         if (movement == direction.Forward) 
-            DidacbotEndavant()
+            DidacbotForward()
         else if (movement == direction.Backwards)
-            DidacbotDarrera()
+            DidacbotBackward()
         else if (movement == direction.Left)
-            DidacbotGirEsquerra()
+            DidacbotTurnLeft()
         else if (movement == direction.Right)
-            DidacbotGirDreta()
+            DidacbotTurnRight()
     }
 
 
@@ -231,13 +231,13 @@ namespace didacbot {
             initPCA9685()
         }
         if (movement == direction.Forward)
-            DidacbotEndavant()
+            DidacbotForward()
         else if (movement == direction.Backwards)
-            DidacbotDarrera()
+            DidacbotBackward()
         else if (movement == direction.Left)
-            DidacbotGirEsquerra()
+            DidacbotTurnLeft()
         else if (movement == direction.Right)
-            DidacbotGirDreta()
+            DidacbotTurnRight()
 		
        	num = Math.abs(num)
 		
@@ -260,10 +260,10 @@ namespace didacbot {
         }
 		if (degree != 0) {
 			if (degree < 0) {
-				DidacbotRotEsquerra()
+				DidacbotRotLeft()
 			}    
 			else if (degree > 0) {
-				DidacbotRotDreta()
+				DidacbotRotRight()
 			}
 			basic.pause(57.33 * Math.abs(degree))
 			MotorStopAll()
