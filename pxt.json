@@ -18,5 +18,4 @@
         "tests.ts"
     ],
     "public": true,
-    "installedVersion": "github:MakeAndLearn/pxt-didacbot#v1.0.2"
 }
