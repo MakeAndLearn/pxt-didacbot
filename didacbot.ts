@@ -128,7 +128,7 @@ namespace didacbot {
         setPwm((index - 1) * 2 + 1, 0, 0)
     }
 
-    function DidacbotForward() {
+    function forward() {
         setPwm(2, STP_CHA_L, STP_CHA_H)
         setPwm(1, STP_CHB_L, STP_CHB_H)
         setPwm(3, STP_CHC_L, STP_CHC_H)
@@ -139,7 +139,7 @@ namespace didacbot {
         setPwm(6, STP_CHD_L, STP_CHD_H)
     }
 
-    function DidacbotBackward() {
+    function backward() {
         setPwm(0, STP_CHA_L, STP_CHA_H)
         setPwm(3, STP_CHB_L, STP_CHB_H)
         setPwm(1, STP_CHC_L, STP_CHC_H)
@@ -150,7 +150,7 @@ namespace didacbot {
         setPwm(4, STP_CHD_L, STP_CHD_H)
     }
 
-    function DidacbotTurnRight() {
+    function turnRight() {
 		setPwm(2, STP_CHA_L, STP_CHA_H)
         setPwm(1, STP_CHB_L, STP_CHB_H)
         setPwm(3, STP_CHC_L, STP_CHC_H)
@@ -161,7 +161,7 @@ namespace didacbot {
         setPwm(6, 0, 0)
     }
 
-    function DidacbotTurnLeft() {
+    function turnLeft() {
 		setPwm(2, 0, 0)
         setPwm(1, 0, 0)
         setPwm(3, 0, 0)
@@ -172,7 +172,7 @@ namespace didacbot {
         setPwm(6, STP_CHD_L, STP_CHD_H)
     }
 	
-	function DidacbotSpinRight() {
+	function spinRight() {
 		setPwm(2, STP_CHA_L, STP_CHA_H)
         setPwm(1, STP_CHB_L, STP_CHB_H)
         setPwm(3, STP_CHC_L, STP_CHC_H)
@@ -183,7 +183,7 @@ namespace didacbot {
         setPwm(4, STP_CHD_L, STP_CHD_H)
     }
 	
-	function DidacbotSpinLeft() {
+	function spinLeft() {
         setPwm(0, STP_CHA_L, STP_CHA_H)
         setPwm(3, STP_CHB_L, STP_CHB_H)
         setPwm(1, STP_CHC_L, STP_CHC_H)
@@ -194,7 +194,7 @@ namespace didacbot {
         setPwm(6, STP_CHD_L, STP_CHD_H)
     }
     
-	function MotorStopAll() {
+	function motorStopAll() {
 		setPwm(2, 0, 0)
 		setPwm(1, 0, 0)
 		setPwm(3, 0, 0)
@@ -213,18 +213,18 @@ namespace didacbot {
 	*/
     //% blockId=didacbot_movement block="move Didacbot |%movement|"
     //% weight=120
-    export function Didacbot_move(movement: direction): void {
+    export function moveDidacbot(movement: direction): void {
         if (!initialized) {
             initPCA9685()
         }
         if (movement == direction.Forward) 
-            DidacbotForward()
+            forward()
         else if (movement == direction.Backward)
-            DidacbotBackward()
+            backward()
         else if (movement == direction.Left)
-            DidacbotTurnLeft()
+            turnLeft()
         else if (movement == direction.Right)
-            DidacbotTurnRight()
+            turnRight()
     }
 
 	/**
@@ -235,18 +235,18 @@ namespace didacbot {
 	*/
 	//% blockId=didacbot_movement_params block="move Didacbot |%movement| turning wheels |%num|%unit|"
     //% weight=150
-    export function Didacbot(movement: direction, num: number, unit: stepUnit): void {
+    export function moveDidacbotParams(movement: direction, num: number, unit: stepUnit): void {
         if (!initialized) {
             initPCA9685()
         }
         if (movement == direction.Forward)
-            DidacbotForward()
+            forward()
         else if (movement == direction.Backward)
-            DidacbotBackward()
+            backward()
         else if (movement == direction.Left)
-            DidacbotTurnLeft()
+            turnLeft()
         else if (movement == direction.Right)
-            DidacbotTurnRight()
+            turnRight()
 		
        	num = Math.abs(num)
 		
@@ -255,43 +255,42 @@ namespace didacbot {
             case stepUnit.Degrees: basic.pause(10750 * num / 360)
         }
 		
-        MotorStopAll()
+        motorStopAll()
     }
 	
 	/**
 		* Didacbot spin with params
 		* @param degree [0-360] robot rotation degrees; eg: 0, 180, -180, 360
 	*/
-	//% blockId=didacbot_spin_params block="spin Didacbot |%degree|º"
+	//% blockId=didacbot_spin_params block="spin Didacbot |%degree| degrees"
     //% weight=100
     //% degree.min=-180 degree.max=180
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
-    export function Didacbot_spin(degree: number): void {
+    export function spinDidacbot(degree: number): void {
         if (!initialized) {
             initPCA9685()
         }
 		if (degree != 0) {
 			if (degree < 0) {
-				DidacbotSpinLeft()
+				spinLeft()
 			}    
 			else if (degree > 0) {
-				DidacbotSpinRight()
+				spinRight()
 			}
 			basic.pause(57.33 * Math.abs(degree))
-			MotorStopAll()
+			motorStopAll()
 		}
         else {
-            MotorStopAll()
+            motorStopAll()
         }	  
     }
 	
-	
 	//% blockId=didacbot_stop block="Didacbot stop"
     //% weight=90
-    export function DidacbotStop(): void {
+    export function stopDidacbot(): void {
         if (!initialized) {
             initPCA9685()
         }
-		MotorStopAll()
+		motorStopAll()
 	}
 }
