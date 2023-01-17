@@ -1,25 +1,25 @@
 input.onButtonPressed(Button.A, function () {
-    didacbot.Didacbot_rotation(-90)
-})
-input.onButtonPressed(Button.B, function () {
-    didacbot.Didacbot_rotation(90)
+    didacbot.spinDidacbot(-90)
 })
 
-//Make the robot run in a square when the micro:bit's buttons A and B are pressed
 input.onButtonPressed(Button.AB, function () {
     for (let index = 0; index < 4; index++) {
-        didacbot.Didacbot(didacbot.direction.Forward, 1.3, didacbot.stepUnit.Rotations)
-        didacbot.Didacbot_rotation(-90)
+        didacbot.moveDidacbotParams(didacbot.direction.Forward, 2, didacbot.stepUnit.Rotations)
+        didacbot.spinDidacbot(-90)
     }
 })
 
+input.onButtonPressed(Button.B, function () {
+    didacbot.spinDidacbot(90)
+})
+
 basic.forever(function () {
-    didacbot.Didacbot_move(didacbot.direction.Forward)
+    didacbot.moveDidacbot(didacbot.direction.Forward)
     basic.pause(2000)
-    didacbot.DidacbotStop()
+    didacbot.stopDidacbot()
     basic.pause(1000)
-    didacbot.Didacbot_move(didacbot.direction.Backward)
+    didacbot.moveDidacbot(didacbot.direction.Backward)
     basic.pause(2000)
-    didacbot.DidacbotStop()
+    didacbot.stopDidacbot()
     basic.pause(1000)
 })
