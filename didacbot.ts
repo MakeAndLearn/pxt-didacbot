@@ -102,7 +102,7 @@ namespace didacbot {
 		  let prescale = prescaleval //Math.Floor(prescaleval + 0.5);
 		  let oldmode = i2cread(PCA9685_ADDRESS, MODE1)
 		  let newmode = (oldmode & 0x7F) | 0x10 // sleep
-		  i2cwrite(PCA9685_ADDRESS, MODE1, newmode) // go to sleep
+			  i2cwrite(PCA9685_ADDRESS, MODE1, newmode) // go to sleep
 		  i2cwrite(PCA9685_ADDRESS, PRESCALE, prescale) // set the prescaler
 		  i2cwrite(PCA9685_ADDRESS, MODE1, oldmode)
 		  basic.pause(1)
@@ -172,7 +172,7 @@ namespace didacbot {
         setPwm(6, STP_CHD_L, STP_CHD_H)
     }
 	
-	function DidacbotRotRight() {
+	function DidacbotSpinRight() {
 		setPwm(2, STP_CHA_L, STP_CHA_H)
         setPwm(1, STP_CHB_L, STP_CHB_H)
         setPwm(3, STP_CHC_L, STP_CHC_H)
@@ -183,7 +183,7 @@ namespace didacbot {
         setPwm(4, STP_CHD_L, STP_CHD_H)
     }
 	
-	function DidacbotRotLeft() {
+	function DidacbotSpinLeft() {
         setPwm(0, STP_CHA_L, STP_CHA_H)
         setPwm(3, STP_CHB_L, STP_CHB_H)
         setPwm(1, STP_CHC_L, STP_CHC_H)
@@ -207,7 +207,11 @@ namespace didacbot {
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    //% blockId=didacbot_movement block="Didacbot Go |%movement|"
+	/**
+		* Didacbot Movement
+		* @param movement type; eg: forward, backward, right, left
+	*/
+    //% blockId=didacbot_movement block="move Didacbot |%movement|"
     //% weight=120
     export function Didacbot_move(movement: direction): void {
         if (!initialized) {
@@ -223,8 +227,13 @@ namespace didacbot {
             DidacbotTurnRight()
     }
 
-
-	//% blockId=didacbot_movement_params block="Didacbot Go|%movement| turning wheels|%num|%unit|"
+	/**
+		* Didacbot Movement with params
+		* @param movement type; eg: forward, backward, right, left
+		* @param number of rotations or degrees; eg: -5, 5
+		* @param unit; eg: rotations or degrees
+	*/
+	//% blockId=didacbot_movement_params block="move Didacbot |%movement| turning wheels |%num|%unit|"
     //% weight=150
     export function Didacbot(movement: direction, num: number, unit: stepUnit): void {
         if (!initialized) {
@@ -249,21 +258,24 @@ namespace didacbot {
         MotorStopAll()
     }
 	
-	
-	//% blockId=didacbot_rotation_params block="Didacbot Rotate |%degree|º"
+	/**
+		* Didacbot spin with params
+		* @param degree [0-360] robot rotation degrees; eg: 0, 180, -180, 360
+	*/
+	//% blockId=didacbot_spin_params block="spin Didacbot |%degree|º"
     //% weight=100
     //% degree.min=-180 degree.max=180
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
-    export function Didacbot_rotation(degree: number): void {
+    export function Didacbot_spin(degree: number): void {
         if (!initialized) {
             initPCA9685()
         }
 		if (degree != 0) {
 			if (degree < 0) {
-				DidacbotRotLeft()
+				DidacbotSpinLeft()
 			}    
 			else if (degree > 0) {
-				DidacbotRotRight()
+				DidacbotSpinRight()
 			}
 			basic.pause(57.33 * Math.abs(degree))
 			MotorStopAll()
@@ -274,7 +286,7 @@ namespace didacbot {
     }
 	
 	
-	//% blockId=didacbot_stop block="Didacbot Stop"
+	//% blockId=didacbot_stop block="Didacbot stop"
     //% weight=90
     export function DidacbotStop(): void {
         if (!initialized) {
