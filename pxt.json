@@ -18,4 +18,5 @@
         "tests.ts"
     ],
     "public": true,
+    "preferredEditor": "tsprj"
 }
