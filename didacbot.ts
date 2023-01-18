@@ -285,7 +285,7 @@ namespace didacbot {
         }	  
     }
 	
-	//% blockId=didacbot_stop block="Didacbot stop"
+	//% blockId=didacbot_stop block="stop Didacbot"
     //% weight=90
     export function stopDidacbot(): void {
         if (!initialized) {
