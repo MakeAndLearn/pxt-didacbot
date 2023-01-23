@@ -1,6 +1,6 @@
 {
     "name": "didacbot",
-    "version": "1.0.2",
+    "version": "1.0.4",
     "description": "MAKE&LEARN Didacbot",
     "license": "MIT",
     "dependencies": {
