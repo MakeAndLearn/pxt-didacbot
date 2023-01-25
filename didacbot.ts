@@ -37,23 +37,15 @@ namespace didacbot {
     
     let initialized = false
     let matBuf = pins.createBuffer(17);
-
-
-	export enum Steppers {
-        //% block="1"
-        STEP1 = 0x1,
-        //% block="2"
-        STEP2 = 0x2
-    }
 	
-	export enum stepUnit {
+	export enum StepUnit {
 		//% block="degrees"
 		Degrees,
 		//% block="rotations"
 		Rotations
 	}
 	
-	export enum direction {
+	export enum Direction {
 		//% block="forward"
 		Forward,
 		//% block="backward"
@@ -213,17 +205,17 @@ namespace didacbot {
 	*/
     //% blockId=didacbot_movement block="move Didacbot |%movement|"
     //% weight=120
-    export function moveDidacbot(movement: direction): void {
+    export function moveDidacbot(movement: Direction): void {
         if (!initialized) {
             initPCA9685()
         }
-        if (movement == direction.Forward) 
+        if (movement == Direction.Forward) 
             forward()
-        else if (movement == direction.Backward)
+        else if (movement == Direction.Backward)
             backward()
-        else if (movement == direction.Left)
+        else if (movement == Direction.Left)
             turnLeft()
-        else if (movement == direction.Right)
+        else if (movement == Direction.Right)
             turnRight()
     }
 
@@ -235,24 +227,24 @@ namespace didacbot {
 	*/
 	//% blockId=didacbot_movement_params block="move Didacbot |%movement| turning wheels |%num|%unit|"
     //% weight=150
-    export function moveDidacbotParams(movement: direction, num: number, unit: stepUnit): void {
+    export function moveDidacbotParams(movement: Direction, num: number, unit: StepUnit): void {
         if (!initialized) {
             initPCA9685()
         }
-        if (movement == direction.Forward)
+        if (movement == Direction.Forward)
             forward()
-        else if (movement == direction.Backward)
+        else if (movement == Direction.Backward)
             backward()
-        else if (movement == direction.Left)
+        else if (movement == Direction.Left)
             turnLeft()
-        else if (movement == direction.Right)
+        else if (movement == Direction.Right)
             turnRight()
 		
        	num = Math.abs(num)
 		
 		switch (unit) {
-            case stepUnit.Rotations: basic.pause(10750 * num)
-            case stepUnit.Degrees: basic.pause(10750 * num / 360)
+            case StepUnit.Rotations: basic.pause(10750 * num)
+            case StepUnit.Degrees: basic.pause(10750 * num / 360)
         }
 		
         motorStopAll()
@@ -285,6 +277,9 @@ namespace didacbot {
         }	  
     }
 	
+	/**
+		* Didacbot stop movement
+	*/
 	//% blockId=didacbot_stop block="stop Didacbot"
     //% weight=90
     export function stopDidacbot(): void {
