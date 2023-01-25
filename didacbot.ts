@@ -243,8 +243,8 @@ namespace didacbot {
        	num = Math.abs(num)
 		
 		switch (unit) {
-            case StepUnit.Rotations: basic.pause(10750 * num)
-            case StepUnit.Degrees: basic.pause(10750 * num / 360)
+            case StepUnit.Rotations: control.waitMicros(10750 * num * 1000)
+            case StepUnit.Degrees: control.waitMicros(10750 * num / 360 * 1000)
         }
 		
         motorStopAll()
